@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16
+    container_name: postgres-financeiro
+    environment:
+      POSTGRES_USER: wash
+      POSTGRES_PASSWORD: 2503
+      POSTGRES_DB: financeiro
+    ports:
+      - "5432:5432"
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/financeiro
+      SPRING_DATASOURCE_USERNAME: wash
+      SPRING_DATASOURCE_PASSWORD: 2503
